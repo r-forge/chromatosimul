@@ -1,6 +1,6 @@
 ## Write a parser to get parameters from object
 setGeneric('csParse',function(object,...) standardGeneric('csParse'))
-setMethod('csParse','chromatoSimul',function(object,env,...){
+setMethod('csParse','chromatoSim',function(object,env,...){
   require(Biobase)
   lst <- object@par
   l2e(lst,env)     
@@ -9,7 +9,7 @@ setMethod('csParse','chromatoSimul',function(object,env,...){
 
 ## Simulator
 setGeneric('generate',function(object,...) standardGeneric('generate'))
-setMethod('generate','chromatoSimul',function(object,...){
+setMethod('generate','chromatoSim',function(object,...){
   ## parse parameters defined in the chromatoSimul class
   current.env <- environment()
   csParse(object,env=current.env)

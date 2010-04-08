@@ -2,7 +2,7 @@
 ## generate simulated data result slot contains final retentime, profile matrix,
 ## could be used for graphic check after you generate different set of NetCDF files.
 
-setClass('chromatoSimul',
+setClass('chromatoSim',
          representation(par='list',
                         result='list'
                         ),

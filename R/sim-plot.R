@@ -1,6 +1,6 @@
 ## plot profile matrix
 setGeneric('csplotProf',function(object,...) standardGeneric('csplotProf'))
-setMethod('csplotProf','chromatoSimul',function(object,sampleID=NULL,...){
+setMethod('csplotProf','chromatoSim',function(object,sampleID=NULL,...){
   if(is.null(sampleID)) sampleID <- 1
   p <- img(object,sampleID)
   print(p)
@@ -26,7 +26,7 @@ img <- function(object,sampleID){
 
 ## plot retention time match or drift diagnostic graphics
 setGeneric('csplotRt',function(object,...) standardGeneric('csplotRt'))
-setMethod('csplotRt','chromatoSimul',function(object,...){
+setMethod('csplotRt','chromatoSim',function(object,...){
   browser()
   profile <- object@result$profile
   l2e(object@par,environment())
