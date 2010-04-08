@@ -6,8 +6,7 @@ setMethod('csplotProf','chromatoSim',function(object,sampleID=NULL,...){
   print(p)
 })
 
-
-
+## FIXME: With new qtinterface.
 img <- function(object,sampleID){
   require(ggplot2)
   l2e(object@par,environment())
@@ -25,21 +24,30 @@ img <- function(object,sampleID){
 }
 
 ## plot retention time match or drift diagnostic graphics
-setGeneric('csplotRt',function(object,...) standardGeneric('csplotRt'))
-setMethod('csplotRt','chromatoSim',function(object,...){
-  browser()
+setGeneric('csplotRt',function(object,xlim=NULL,ylim=NULL,...) standardGeneric('csplotRt'))
+setMethod('csplotRt','chromatoSim',function(object,xlim=NULL,ylim=NULL,...){
   profile <- object@result$profile
-  l2e(object@par,environment())
+  Biobase::l2e(object@par,environment())
   rt <- seq(rt_range[1],rt_range[2],rt_diff)
   pflst <- do.call(c,profile)
+  pflst <- lapply(pflst,function(x) {x-missing})
   rtlst <- do.call(c,object@result$rt)
   poslst <- do.call(c,object@result$pos)
   lst <- lapply(pflst,function(x) {apply(x,2,sum)})
-  par(new=TRUE)
-  for(i in 1:length(lst)){
-    plot(rt[poslst[[i]]],lst[[i]][poslst[[i]]],type='h')
-  }
+  n <- length(pflst)
+  if(is.null(xlim)) xlim=range(rt)
+  if(is.null(ylim)) ylim=range(lst)
+  df <- data.frame(rt=rep(rt,n),
+                   intensity=unlist(lst),
+                   group=rep(1:n,each=length(rt)))
+  p <- ggplot(data=df, aes(x=rt,y=intensity,group=factor(group),color=group))
+  p <- p+scale_x_continuous(limits=xlim)+
+    scale_y_continuous(limits=ylim)+
+      geom_line()
+  print(p)
 })
+
+
 
 
 
