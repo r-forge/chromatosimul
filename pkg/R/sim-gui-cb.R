@@ -4,7 +4,7 @@ defHandler <- function(h,...) print('hi')
 quitHandler <- function(h,...) dispose(win)
 ## plot var
 plotVarHandler <- function(h,...) {
-  if(exists("gsum")) delete(g33,gsum)ls
+  if(exists("gsum")) delete(g33,gsum)
   v <- svalue(g4drop)
   p <- svalue(g4drop2)
   n <- get.var.ncdf(temp,v)
@@ -80,16 +80,17 @@ simulHandler <- function(h,...){
   generate(object) }                  
 
 
-setdefHandler <- function(h,...){
-  ## lst <- object@par
-  ## for(i in 1:length(lst)){
-  ##   paraName <- names(lst[i])
-  ##   v <- lst[[i]]
-  ##   svalue()
-  ## }
-  ## dispost para widget and create a new one
-  dispose(para)
-}
+## setdefHandler <- function(h,...){
+##   ## lst <- object@par
+##   ## for(i in 1:length(lst)){
+##   ##   paraName <- names(lst[i])
+##   ##   v <- lst[[i]]
+##   ##   svalue()
+##   ## }
+##   ## dispost para widget and create a new one
+##   svalue(para)<<-0
+##   #createLayout(new('chromatoSim'),col=NULL)
+## }
 
 quitNbHandler <- function(h,...){
   dispose(nb)
